@@ -49,6 +49,8 @@ class App extends Component {
       const videosCount = await dvideo.methods.videoCount().call()
       this.setState({videosCount})
 
+      console.log(videosCount)
+
       for (let i=videosCount; i>=1; i--) {
         const video = await dvideo.methods.videos(i).call()
         this.setState({
@@ -95,6 +97,7 @@ class App extends Component {
       this.setState({loading: true})
       this.state.dvideo.methods.uploadVideo(data[0].hash,title).send({from: this.state.account}).on('transactionHash',(hash) => {
         this.setState({loading: false})
+        window.location.reload()
       })
     })
   }
